@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeyapriya MOUTTOU — Développeuse Fullstack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f5f2ee;
+    --accent: #c8473e;
+    --accent2: #2a6dd9;
+    --muted: #7a7570;
+    --border: rgba(14,14,14,0.12);
+    --card-bg: #ffffff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 15px; letter-spacing: .04em;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 400; color: var(--muted);
+    text-decoration: none; letter-spacing: .03em;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 64px 80px 64px;
+    border-right: 1px solid var(--border);
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 500; letter-spacing: .12em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-tag::before {
+    content: ''; display: block; width: 24px; height: 1px; background: var(--accent);
+  }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 5.5vw, 80px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .hero-title span { color: var(--accent); }
+  .hero-sub {
+    font-size: 16px; font-weight: 300; color: var(--muted);
+    max-width: 420px; line-height: 1.7; margin-bottom: 40px;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ink); color: var(--paper);
+    padding: 14px 28px; border-radius: 4px;
+    font-size: 13px; font-weight: 500; letter-spacing: .04em;
+    text-decoration: none; width: fit-content;
+    transition: background .2s, transform .15s;
+  }
+  .hero-cta:hover { background: var(--accent); transform: translateY(-1px); }
+  .hero-cta-arrow { font-size: 16px; }
+
+  .hero-right {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 80px 64px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 180px; font-weight: 800;
+    color: rgba(14,14,14,0.04);
+    position: absolute; right: -20px; top: 80px;
+    line-height: 1; pointer-events: none; user-select: none;
+    white-space: nowrap;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    border: 1px solid var(--border);
+  }
+  .stat {
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    transition: background .2s;
+  }
+  .stat:hover { background: var(--ink); color: var(--paper); }
+  .stat:hover .stat-num, .stat:hover .stat-label { color: inherit; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 44px; font-weight: 800;
+    color: var(--ink); line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px; color: var(--muted);
+    margin-top: 6px; font-weight: 400;
+  }
+  .hero-contact {
+    display: flex; flex-direction: column; gap: 8px;
+    margin-top: 32px;
+  }
+  .hero-contact-item {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: var(--muted);
+  }
+  .hero-contact-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  /* ── SECTIONS ── */
+  section { border-top: 1px solid var(--border); }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 80px 64px; }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 56px;
+  }
+  .section-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--accent); letter-spacing: .12em;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 800; line-height: 1.1;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-grid { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+    transition: background .15s;
+  }
+  .exp-item:first-child { border-top: none; }
+  .exp-meta { padding-right: 40px; }
+  .exp-period {
+    font-size: 12px; color: var(--muted); font-weight: 400; margin-bottom: 6px;
+    letter-spacing: .03em;
+  }
+  .exp-company {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700; color: var(--ink);
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .exp-location { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .exp-content {}
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 16px; color: var(--ink);
+  }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .exp-bullets li {
+    font-size: 14px; color: var(--muted); line-height: 1.6;
+    display: flex; gap: 12px;
+  }
+  .exp-bullets li::before {
+    content: '→'; color: var(--accent); flex-shrink: 0; margin-top: 1px;
+  }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+  .tag {
+    font-size: 11px; padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 2px; color: var(--muted);
+    font-weight: 500; letter-spacing: .04em;
+  }
+
+  /* ── PROJETS ── */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  .project-card {
+    background: var(--card-bg); padding: 48px 40px;
+    position: relative; overflow: hidden;
+    transition: background .2s;
+    cursor: default;
+  }
+  .project-card:hover { background: var(--ink); }
+  .project-card:hover .project-title,
+  .project-card:hover .project-desc,
+  .project-card:hover .project-year,
+  .project-card:hover .tag { color: var(--paper); border-color: rgba(255,255,255,.2); }
+  .project-card:hover .project-arrow { color: var(--accent); }
+  .project-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .project-year { font-size: 11px; color: var(--muted); letter-spacing: .08em; font-weight: 500; }
+  .project-arrow { font-size: 20px; color: var(--muted); transition: color .2s; }
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px; font-weight: 700;
+    margin-bottom: 12px; line-height: 1.2;
+  }
+  .project-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
+  .project-big { grid-column: 1 / -1; }
+  .project-big .project-title { font-size: 32px; }
+  .project-badge {
+    position: absolute; top: 24px; right: 24px;
+    background: var(--accent); color: white;
+    font-size: 10px; font-weight: 600; letter-spacing: .08em;
+    padding: 4px 10px; border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── SKILLS ── */
+  .skills-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: start; }
+  .skills-intro { font-size: 15px; color: var(--muted); line-height: 1.8; }
+  .skills-grid { display: flex; flex-direction: column; gap: 0; }
+  .skill-cat {
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
+  }
+  .skill-cat:first-child { border-top: none; }
+  .skill-cat-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-size: 13px; padding: 6px 14px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all .15s;
+  }
+  .skill-tag:hover {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+    transform: translateY(-1px);
+  }
+
+  /* ── FORMATION ── */
+  .edu-list { display: flex; flex-direction: column; gap: 0; }
+  .edu-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+  }
+  .edu-item:first-child { border-top: none; }
+  .edu-year { font-size: 12px; color: var(--muted); padding-right: 40px; padding-top: 3px; }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 700; margin-bottom: 4px;
+  }
+  .edu-school { font-size: 13px; color: var(--muted); }
+
+  /* ── CERTIF & LANGUES ── */
+  .aside-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); }
+  .aside-card { background: var(--card-bg); padding: 40px 32px; }
+  .aside-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+  }
+  .lang-item { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+  .lang-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; }
+  .lang-level { font-size: 12px; color: var(--muted); }
+  .lang-bar { height: 2px; background: var(--border); border-radius: 1px; margin-top: 6px; }
+  .lang-fill { height: 100%; border-radius: 1px; background: var(--accent); }
+  .certif-block { display: flex; flex-direction: column; gap: 4px; }
+  .certif-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; }
+  .certif-org { font-size: 13px; color: var(--muted); }
+  .certif-year { font-size: 11px; color: var(--accent); font-weight: 500; margin-top: 4px; }
+  .interest-list { display: flex; flex-direction: column; gap: 10px; list-style: none; }
+  .interest-list li { font-size: 14px; color: var(--muted); display: flex; gap: 10px; align-items: center; }
+  .interest-list li::before { content: ''; width: 16px; height: 1px; background: var(--accent); flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 64px;
+  }
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: .06em;
+  }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-right { font-size: 12px; color: var(--muted); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag  { animation: fadeUp .6s ease both; animation-delay: .1s; }
+  .hero-title{ animation: fadeUp .6s ease both; animation-delay: .2s; }
+  .hero-sub  { animation: fadeUp .6s ease both; animation-delay: .3s; }
+  .hero-cta  { animation: fadeUp .6s ease both; animation-delay: .4s; }
+  .hero-stats{ animation: fadeUp .6s ease both; animation-delay: .45s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 48px 24px; border-right: none; }
+    .hero-right { padding: 0 24px 48px; }
+    .hero-bg-text { font-size: 80px; }
+    .section-inner { padding: 56px 24px; }
+    .exp-item { grid-template-columns: 1fr; }
+    .exp-meta { padding-right: 0; padding-bottom: 12px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-big { grid-column: 1; }
+    .skills-layout { grid-template-columns: 1fr; gap: 40px; }
+    .edu-item { grid-template-columns: 1fr; }
+    .edu-year { padding-bottom: 8px; }
+    .aside-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">JM.</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Expérience</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="mailto:jeyapriya.mouttou@gmail.com">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Disponible · Île-de-France</div>
+    <h1 class="hero-title">
+      Jeyapriya<br><span>MOUTTOU</span>
+    </h1>
+    <p class="hero-sub">
+      Développeuse Fullstack (Bac+5) spécialisée en Java · Vue.js · React · Azure. 2 ans d'expérience chez KPMG, certifiée Prompt Engineering par Google. J'allieIA générative et maîtrise du cycle produit pour concevoir des outils SaaS à fort impact.
+    </p>
+    <a class="hero-cta" href="mailto:jeyapriya.mouttou@gmail.com">
+      Me contacter <span class="hero-cta-arrow">↗</span>
+    </a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">FS</div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Ans d'expérience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Bac+5</div>
+        <div class="stat-label">Master Architecte SI</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Langues maîtrisées</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">IA</div>
+        <div class="stat-label">Certifiée Google 2026</div>
+      </div>
+    </div>
+    <div class="hero-contact">
+      <div class="hero-contact-item"><span class="hero-contact-dot"></span>jeyapriya.mouttou@gmail.com</div>
+      <div class="hero-contact-item"><span class="hero-contact-dot"></span>07 62 73 28 39</div>
+      <div class="hero-contact-item"><span class="hero-contact-dot"></span>Argenteuil (95), Île-de-France</div>
+      <div class="hero-contact-item"><span class="hero-contact-dot"></span>linkedin.com/in/jeyapriya-mouttou</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">01 — Expérience</span>
+      <h2 class="section-title">Parcours professionnel</h2>
+    </div>
+    <div class="exp-grid">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">2023 — 2025</div>
+          <div class="exp-company">KPMG</div>
+          <div class="exp-location">Courbevoie</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Développeuse Full Stack</div>
+          <ul class="exp-bullets">
+            <li>Conception et livraison du Calculateur ITS — simulateur d'estimation de coût permettant aux équipes métier d'obtenir une estimation en quelques clics (gain estimé : ~1 semaine par demande).</li>
+            <li>Développement de composants réutilisables intégrés au design system commun, en collaboration étroite avec les équipes métier pour cadrer les besoins fonctionnels.</li>
+            <li>Livraison en Agile/Scrum avec utilisation de GitHub Copilot pour l'optimisation du code et la génération de tests unitaires.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">.NET 8</span>
+            <span class="tag">Vue.js 3</span>
+            <span class="tag">SQL Server</span>
+            <span class="tag">Storybook</span>
+            <span class="tag">Figma</span>
+            <span class="tag">GitHub Copilot</span>
+            <span class="tag">Agile/Scrum</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">Mars — Mai 2022</div>
+          <div class="exp-company">BH Technologies</div>
+          <div class="exp-location">Nanterre</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Développeuse .NET (Stage)</div>
+          <ul class="exp-bullets">
+            <li>Correction de bugs et développement de nouvelles fonctionnalités front-end sur des applications C#/.NET en production.</li>
+            <li>Réalisation de tests de non-régression avant déploiement pour garantir la stabilité des mises à jour.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">C#</span>
+            <span class="tag">.NET</span>
+            <span class="tag">Tests de régression</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">Oct. — Nov. 2020</div>
+          <div class="exp-company">JLBeauty</div>
+          <div class="exp-location">Argenteuil</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Développeuse PHP (Stage)</div>
+          <ul class="exp-bullets">
+            <li>Mise en place d'une architecture Fullstack sous Symfony et base de données MySQL.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">PHP</span>
+            <span class="tag">Symfony</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">02 — Projets</span>
+      <h2 class="section-title">Réalisations</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card project-big">
+        <div class="project-badge">Projet phare</div>
+        <div class="project-card-top">
+          <span class="project-year">2026</span>
+          <span class="project-arrow">↗</span>
+        </div>
+        <div class="project-title">SantéScan</div>
+        <div class="project-desc">
+          Application d'analyse médicale par IA. Numérisation et explication de bilans médicaux par OCR + Prompt Engineering (LLM) pour vulgariser les résultats complexes. Modèle de données optimisé pour le suivi longitudinal patient.
+        </div>
+        <div class="exp-tags">
+          <span class="tag">.NET 8</span>
+          <span class="tag">Vue.js 3</span>
+          <span class="tag">OCR</span>
+          <span class="tag">LLM</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">SQL Server</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-top">
+          <span class="project-year">2026</span>
+          <span class="project-arrow">↗</span>
+        </div>
+        <div class="project-title">Calculateur ITS</div>
+        <div class="project-desc">
+          Simulateur d'estimation de coût pour KPMG. Remplace des analyses manuelles longues et fastidieuses — gain estimé d'environ 1 semaine par demande pour les équipes métier.
+        </div>
+        <div class="exp-tags">
+          <span class="tag">.NET 8</span>
+          <span class="tag">Vue.js 3</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">SaaS</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-top">
+          <span class="project-year">2026</span>
+          <span class="project-arrow">↗</span>
+        </div>
+        <div class="project-title">Hackathon Women in GenAI</div>
+        <div class="project-desc">
+          Prototypage d'une solution IA en équipe pluridisciplinaire sous contrainte de temps. Mobilisation des compétences LLM et Prompt Engineering sur un cas d'usage concret.
+        </div>
+        <div class="exp-tags">
+          <span class="tag">LLM</span>
+          <span class="tag">IA Générative</span>
+          <span class="tag">Équipe</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">03 — Compétences</span>
+      <h2 class="section-title">Stack technique</h2>
+    </div>
+    <div class="skills-layout">
+      <div class="skills-intro">
+        <p>Développeuse fullstack avec une appétence marquée pour la conception produit, la qualité du code et l'intégration d'outils IA dans les processus de développement.</p>
+        <br>
+        <p>Je m'adapte aussi bien aux contextes projets greenfield qu'aux environnements legacy, avec une sensibilité particulière pour l'UX et le design system.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-cat">
+          <div class="skill-cat-name">Backend</div>
+          <div class="skill-tags">
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">.NET 6/8</span>
+            <span class="skill-tag">ASP.NET Core</span>
+            <span class="skill-tag">Entity Framework</span>
+            <span class="skill-tag">API REST</span>
+            <span class="skill-tag">MVC</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">PHP</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="skill-cat-name">Frontend</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Vue.js 3</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Vuetify</span>
+            <span class="skill-tag">Angular</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="skill-cat-name">Base de données</div>
+          <div class="skill-tags">
+            <span class="skill-tag">SQL Server</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="skill-cat-name">UX / Design System</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Storybook</span>
+            <span class="skill-tag">Adobe XD</span>
+            <span class="skill-tag">Maquettage haute fidélité</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="skill-cat-name">Cloud & Outils</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Azure</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub Copilot</span>
+            <span class="skill-tag">Agile/Scrum</span>
+            <span class="skill-tag">VS Code</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="skill-cat-name">IA & Autres</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">LLM</span>
+            <span class="skill-tag">OCR</span>
+            <!-- <span class="skill-tag"></span> -->
+            <span class="skill-tag">Salesforce</span>
+            <span class="skill-tag">SAP S/4HANA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">04 — Formation</span>
+      <h2 class="section-title">Parcours académique</h2>
+    </div>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-year">2023 — 2025</div>
+        <div>
+          <div class="edu-degree">Master Architecte des SI (Bac+5)</div>
+          <div class="edu-school">CFA INSTA — Paris</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2022 — 2023</div>
+        <div>
+          <div class="edu-degree">Ingénierie Informatique (Master 1)</div>
+          <div class="edu-school">EPSI — La Défense</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2021 — 2022</div>
+        <div>
+          <div class="edu-degree">Développeur Java (Bac+3/4)</div>
+          <div class="edu-school">AFPA — Paris</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2020 — 2021</div>
+        <div>
+          <div class="edu-degree">Développeur Web et Web Mobile (Bac+2)</div>
+          <div class="edu-school">Philiance Formation — Charenton-le-Pont</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIF / LANGUES / CENTRES D'INTÉRÊT -->
+<section>
+  <div class="section-inner" style="padding-bottom: 0;">
+    <div class="section-header">
+      <span class="section-num">05 — Profil</span>
+      <h2 class="section-title">À propos</h2>
+    </div>
+  </div>
+  <div class="aside-grid">
+    <div class="aside-card">
+      <div class="aside-title">Certification</div>
+      <div class="certif-block">
+        <div class="certif-name">Prompt Engineering</div>
+        <div class="certif-org">Google</div>
+        <div class="certif-year">2026</div>
+      </div>
+    </div>
+    <div class="aside-card">
+      <div class="aside-title">Langues</div>
+      <div class="lang-item">
+        <div class="lang-name">Français</div>
+        <div class="lang-level">Courant</div>
+        <div class="lang-bar"><div class="lang-fill" style="width:95%"></div></div>
+      </div>
+      <div class="lang-item">
+        <div class="lang-name">Anglais</div>
+        <div class="lang-level">Bilingue</div>
+        <div class="lang-bar"><div class="lang-fill" style="width:95%"></div></div>
+      </div>
+      <div class="lang-item">
+        <div class="lang-name">Tamoul</div>
+        <div class="lang-level">Langue maternelle</div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+    <div class="aside-card">
+      <div class="aside-title">Centres d'intérêt & Atouts</div>
+      <ul class="interest-list">
+        <li>Innovation Web</li>
+        <li>Cuisine du monde</li>
+        <li>Musique</li>
+        <li>Autonomie & Rigueur</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">JEYAPRIYA MOUTTOU</div>
+  <ul class="footer-links">
+    <li><a href="mailto:jeyapriya.mouttou@gmail.com">Email</a></li>
+    <li><a href="tel:+33762732839">Téléphone</a></li>
+    <li><a href="https://linkedin.com/in/jeyapriya-mouttou" target="_blank">LinkedIn</a></li>
+  </ul>
+  <div class="footer-right">Argenteuil (95) · Île-de-France</div>
+</footer>
+
+</body>
+</html>
